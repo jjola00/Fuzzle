@@ -55,6 +55,7 @@ lcov.info
 *.freezed.dart
 *.mocks.dart
 *.generated.dart
+.flutter-plugins-dependencies
 
 # === Android ===
 /android/.gradle/
