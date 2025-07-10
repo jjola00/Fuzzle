@@ -39,26 +39,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   horizontal: 32,
                   vertical: 20,
                 ),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black12,
                       blurRadius: 8,
-                      offset: const Offset(0, 2),
+                      offset: Offset(0, 2),
                     ),
                   ],
                 ),
-                child: Row(
+                child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     // Cat character (using emoji for simplicity)
-                    const Text(
+                    Text(
                       '🐱',
                       style: TextStyle(fontSize: 32),
                     ),
-                    const SizedBox(width: 12),
+                    SizedBox(width: 12),
                     Text(
                       AppConstants.appName,
                       style: TextStyle(
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         elevation: 4,
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
@@ -103,8 +103,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               letterSpacing: 1.2,
                             ),
                           ),
-                          const SizedBox(width: 12),
-                          const Text('🏆', style: TextStyle(fontSize: 24)),
+                          SizedBox(width: 12),
+                          Text('🏆', style: TextStyle(fontSize: 24)),
                         ],
                       ),
                     ),
@@ -128,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         elevation: 4,
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
@@ -139,8 +139,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               letterSpacing: 1.2,
                             ),
                           ),
-                          const SizedBox(width: 12),
-                          const Text('📋', style: TextStyle(fontSize: 24)),
+                          SizedBox(width: 12),
+                          Text('📋', style: TextStyle(fontSize: 24)),
                         ],
                       ),
                     ),
@@ -216,7 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: Colors.black.withOpacity(0.7),
+            color: Colors.black.withValues(alpha: 0.7),
           ),
         ),
       ],
