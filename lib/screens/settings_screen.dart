@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import '../core/constants/app_constants.dart';
 import '../shared/providers/app_state.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -33,7 +34,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(AppConstants.defaultPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -42,7 +43,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             // Storage Test Card
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(AppConstants.cardPadding),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -69,7 +70,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Name saved!'),
-                              duration: Duration(seconds: 2),
+                              duration: Duration(seconds: AppConstants.snackBarDuration),
                             ),
                           );
                         }
@@ -86,7 +87,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             // App Stats Card
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(AppConstants.cardPadding),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -143,12 +144,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         TextButton(
                           onPressed: () {
                             context.read<AppState>().resetData();
-                            _nameController.text = 'Parent';
+                            _nameController.text = AppConstants.defaultUserName;
                             Navigator.of(context).pop();
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Data reset!'),
-                                duration: Duration(seconds: 2),
+                                duration: Duration(seconds: AppConstants.snackBarDuration),
                               ),
                             );
                           },

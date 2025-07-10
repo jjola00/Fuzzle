@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../core/constants/app_constants.dart';
 
 class Feature1Screen extends StatelessWidget {
   const Feature1Screen({super.key});
@@ -12,7 +13,7 @@ class Feature1Screen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(AppConstants.defaultPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -20,7 +21,7 @@ class Feature1Screen extends StatelessWidget {
             
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(AppConstants.cardPadding),
                 child: Column(
                   children: [
                     Icon(
@@ -52,7 +53,7 @@ class Feature1Screen extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Feature 1 button pressed!'),
-                    duration: Duration(seconds: 2),
+                    duration: Duration(seconds: AppConstants.snackBarDuration),
                   ),
                 );
               },

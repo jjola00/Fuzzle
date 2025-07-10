@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../core/constants/app_constants.dart';
 
-class Feature2Screen extends StatelessWidget {
-  const Feature2Screen({super.key});
+class StudyScreen extends StatelessWidget {
+  const StudyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Feature 2'),
+        title: const Text('Study Session'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(
@@ -25,19 +25,19 @@ class Feature2Screen extends StatelessWidget {
                 child: Column(
                   children: [
                     Icon(
-                      Icons.settings,
+                      Icons.school,
                       size: 64,
                       color: Theme.of(context).primaryColor,
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'Feature 2 Screen',
+                      'Study Session',
                       style: Theme.of(context).textTheme.headlineSmall,
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'This is your second main feature screen. Great for testing different layouts and interactions.',
+                      'Start your focused study session here. Track your progress and stay motivated!',
                       style: Theme.of(context).textTheme.bodyMedium,
                       textAlign: TextAlign.center,
                     ),
@@ -52,21 +52,12 @@ class Feature2Screen extends StatelessWidget {
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text('Feature 2 button pressed!'),
+                    content: Text('Study session started!'),
                     duration: Duration(seconds: AppConstants.snackBarDuration),
                   ),
                 );
               },
-              child: const Text('Test Feature 2'),
-            ),
-            
-            const SizedBox(height: 16),
-            
-            OutlinedButton(
-              onPressed: () {
-                context.go('/feature1');
-              },
-              child: const Text('Go to Feature 1'),
+              child: const Text('Start Study Session'),
             ),
             
             const Spacer(),
@@ -82,4 +73,4 @@ class Feature2Screen extends StatelessWidget {
       ),
     );
   }
-}
+} 
