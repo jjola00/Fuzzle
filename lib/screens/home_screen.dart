@@ -33,41 +33,25 @@ class _HomeScreenState extends State<HomeScreen> {
               // Top spacing
               const SizedBox(height: 60),
               
-              // Fuzzle Logo Section
+              // Fuzzle Logo Section - Using Image
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 32,
-                  vertical: 20,
-                ),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black12,
+                      color: Colors.black.withValues(alpha: 0.12),
                       blurRadius: 8,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     ),
                   ],
                 ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Cat character (using emoji for simplicity)
-                    Text(
-                      '🐱',
-                      style: TextStyle(fontSize: 32),
-                    ),
-                    SizedBox(width: 12),
-                    Text(
-                      AppConstants.appName,
-                      style: TextStyle(
-                        fontSize: AppConstants.logoFontSize,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.asset(
+                    'lib/static/fuzzle.png',
+                    fit: BoxFit.contain,
+                    height: 120, // Adjust height as needed
+                  ),
                 ),
               ),
               
@@ -76,43 +60,37 @@ class _HomeScreenState extends State<HomeScreen> {
               // Main Action Buttons
               Column(
                 children: [
-                  // Study Now Button
-                  SizedBox(
-                    width: double.infinity,
-                    height: AppConstants.buttonHeight,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        context.go('/study');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppConstants.primaryButtonColor,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(AppConstants.buttonBorderRadius),
-                        ),
-                        elevation: 4,
-                      ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'STUDY NOW',
-                            style: TextStyle(
-                              fontSize: AppConstants.buttonFontSize,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.2,
-                            ),
+                  // Study Now Button - Using Image
+                  GestureDetector(
+                    onTap: () {
+                      context.go('/study');
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: AppConstants.buttonHeight,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(AppConstants.buttonBorderRadius),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.2),
+                            blurRadius: 6,
+                            offset: const Offset(0, 3),
                           ),
-                          SizedBox(width: 12),
-                          Text('🏆', style: TextStyle(fontSize: 24)),
                         ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(AppConstants.buttonBorderRadius),
+                        child: Image.asset(
+                          'lib/static/studyNow.png',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
                   
                   const SizedBox(height: AppConstants.spaceBetweenMainButtons),
                   
-                  // Check Study Log Button
+                  // Check Study Log Button - Keep as styled button for now
                   SizedBox(
                     width: double.infinity,
                     height: AppConstants.buttonHeight,
