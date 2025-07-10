@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../core/constants/app_constants.dart';
 import '../services/storage_service.dart';
 
 class AppState extends ChangeNotifier {
-  String _userName = '';
-  int _visitCount = 0;
+  String _userName = AppConstants.defaultUserName;
+  int _visitCount = AppConstants.defaultVisitCount;
   
   String get userName => _userName;
   int get visitCount => _visitCount;
@@ -13,28 +14,28 @@ class AppState extends ChangeNotifier {
   }
   
   void _loadData() {
-    _userName = StorageService.getString('user_name') ?? 'Parent';
-    _visitCount = StorageService.getInt('visit_count', defaultValue: 0);
+    _userName = StorageService.getString(AppConstants.userNameKey) ?? AppConstants.defaultUserName;
+    _visitCount = StorageService.getInt(AppConstants.visitCountKey, defaultValue: AppConstants.defaultVisitCount);
     notifyListeners();
   }
   
   void setUserName(String name) {
     _userName = name;
-    StorageService.saveString('user_name', name);
+    StorageService.saveString(AppConstants.userNameKey, name);
     notifyListeners();
   }
   
   void incrementVisit() {
     _visitCount++;
-    StorageService.saveInt('visit_count', _visitCount);
+    StorageService.saveInt(AppConstants.visitCountKey, _visitCount);
     notifyListeners();
   }
   
   void resetData() {
-    _userName = 'Parent';
-    _visitCount = 0;
-    StorageService.remove('user_name');
-    StorageService.remove('visit_count');
+    _userName = AppConstants.defaultUserName;
+    _visitCount = AppConstants.defaultVisitCount;
+    StorageService.remove(AppConstants.userNameKey);
+    StorageService.remove(AppConstants.visitCountKey);
     notifyListeners();
   }
 }
