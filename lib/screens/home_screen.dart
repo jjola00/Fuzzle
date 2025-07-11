@@ -55,11 +55,14 @@ class _HomeScreenState extends State<HomeScreen> {
         double horizontalPadding = screenWidth * 0.1;
         
         // Position calculations based on the image layout
-        double studyNowTop = screenHeight * 0.35;
-        double studyLogTop = screenHeight * 0.48;
-        double bottomButtonsTop = screenHeight * 0.75;
-        double bottomButtonWidth = screenWidth * 0.35;
-        double bottomButtonHeight = screenHeight * 0.12;
+        // Moved Study Now button threshold lower
+        double studyNowTop = screenHeight * 0.38;
+        // Moved Study Log button threshold lower, but not as much
+        double studyLogTop = screenHeight * 0.51;
+        // Adjusted bottom buttons position and made them more accessible
+        double bottomButtonsTop = screenHeight * 0.85;
+        double bottomButtonWidth = screenWidth * 0.4;
+        double bottomButtonHeight = screenHeight * 0.10;
         
         return Stack(
           children: [
@@ -112,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // Settings Button (invisible clickable area)
             Positioned(
               top: bottomButtonsTop,
-              left: screenWidth * 0.1,
+              left: screenWidth * 0.05,
               width: bottomButtonWidth,
               height: bottomButtonHeight,
               child: GestureDetector(
@@ -135,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // Help Button (invisible clickable area)
             Positioned(
               top: bottomButtonsTop,
-              right: screenWidth * 0.1,
+              right: screenWidth * 0.05,
               width: bottomButtonWidth,
               height: bottomButtonHeight,
               child: GestureDetector(
