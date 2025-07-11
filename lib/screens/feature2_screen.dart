@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../core/constants/app_constants.dart';
 
+/// Feature 2 screen - development template for additional app functionality.
+/// This screen serves as a placeholder and testing ground for new features
+/// before they are integrated into the main application workflow.
 class Feature2Screen extends StatelessWidget {
   const Feature2Screen({super.key});
 
@@ -19,6 +22,7 @@ class Feature2Screen extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
             
+            // === Feature Overview ===
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(AppConstants.cardPadding),
@@ -48,11 +52,13 @@ class Feature2Screen extends StatelessWidget {
             
             const SizedBox(height: 30),
             
+            // === Development Actions ===
             ElevatedButton(
               onPressed: () {
+                // TODO: Implement feature 2 functionality
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text('Feature 2 button pressed!'),
+                    content: Text('Feature 2 is under development!'),
                     duration: Duration(seconds: AppConstants.snackBarDuration),
                   ),
                 );
@@ -71,7 +77,7 @@ class Feature2Screen extends StatelessWidget {
             
             const Spacer(),
             
-            ElevatedButton(
+            OutlinedButton(
               onPressed: () {
                 context.go('/');
               },

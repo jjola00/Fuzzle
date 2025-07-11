@@ -19,6 +19,7 @@ class HelpScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
             
+            // === Help Overview ===
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(AppConstants.cardPadding),
@@ -48,37 +49,39 @@ class HelpScreen extends StatelessWidget {
             
             const SizedBox(height: 30),
             
-            // Help sections
+            // === Help Topics ===
             Expanded(
               child: ListView(
                 children: [
-                  _buildHelpCard(
+                  _buildHelpTile(
                     context,
                     'Getting Started',
-                    'Learn how to use ${AppConstants.appName} effectively',
-                    Icons.play_circle_outline,
+                    'Learn how to set up your profile and start your first study session.',
+                    Icons.play_arrow,
                   ),
-                  _buildHelpCard(
+                  _buildHelpTile(
                     context,
-                    'Study Tips',
-                    'Best practices for effective studying',
-                    Icons.lightbulb_outline,
+                    'Study Sessions',
+                    'Tips for effective study sessions and tracking your progress.',
+                    Icons.school,
                   ),
-                  _buildHelpCard(
+                  _buildHelpTile(
+                    context,
+                    'Settings & Preferences',
+                    'Customize your experience and manage your personal data.',
+                    Icons.settings,
+                  ),
+                  _buildHelpTile(
                     context,
                     'Troubleshooting',
-                    'Common issues and solutions',
-                    Icons.build_outlined,
-                  ),
-                  _buildHelpCard(
-                    context,
-                    'Contact Support',
-                    'Get in touch with our support team',
-                    Icons.contact_support_outlined,
+                    'Common issues and solutions for the best app experience.',
+                    Icons.build,
                   ),
                 ],
               ),
             ),
+            
+            const SizedBox(height: 20),
             
             ElevatedButton(
               onPressed: () {
@@ -91,19 +94,31 @@ class HelpScreen extends StatelessWidget {
       ),
     );
   }
-  
-  Widget _buildHelpCard(BuildContext context, String title, String description, IconData icon) {
+
+  /// Creates a help topic tile with consistent styling and layout.
+  Widget _buildHelpTile(BuildContext context, String title, String description, IconData icon) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
-        leading: Icon(icon, size: 32, color: Theme.of(context).primaryColor),
-        title: Text(title, style: Theme.of(context).textTheme.titleMedium),
-        subtitle: Text(description),
-        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+        leading: Icon(
+          icon,
+          size: AppConstants.iconSize * 0.6,
+          color: Theme.of(context).primaryColor,
+        ),
+        title: Text(
+          title,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        subtitle: Text(
+          description,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        trailing: const Icon(Icons.arrow_forward_ios),
         onTap: () {
+          // TODO: Navigate to specific help topic details
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Opening $title...'),
+              content: Text('$title help coming soon!'),
               duration: const Duration(seconds: AppConstants.snackBarDuration),
             ),
           );

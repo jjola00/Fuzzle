@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../shared/providers/app_state.dart';
 
+/// Home screen with image-based navigation and invisible clickable areas.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -14,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Increment visit count when home screen loads
+    // Track user engagement by incrementing visit count after frame renders
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AppState>().incrementVisit();
     });
@@ -25,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background image
           Positioned.fill(
             child: Image.asset(
               'lib/static/homePage.png',
@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           
-          // Clickable areas overlay
+          // Invisible clickable areas positioned over visual buttons
           SafeArea(
             child: _buildClickableAreas(context),
           ),
@@ -49,39 +49,31 @@ class _HomeScreenState extends State<HomeScreen> {
         double screenWidth = constraints.maxWidth;
         double screenHeight = constraints.maxHeight;
         
-        // Calculate button dimensions and positions relative to screen size
+        // Responsive button dimensions based on screen size
         double buttonWidth = screenWidth * 0.8;
         double buttonHeight = screenHeight * 0.08;
         double horizontalPadding = screenWidth * 0.1;
         
-        // Position calculations based on the image layout
-        // Moved Study Now button threshold lower
         double studyNowTop = screenHeight * 0.38;
-        // Moved Study Log button threshold lower, but not as much
         double studyLogTop = screenHeight * 0.51;
-        // Adjusted bottom buttons position and made them more accessible
         double bottomButtonsTop = screenHeight * 0.85;
         double bottomButtonWidth = screenWidth * 0.4;
         double bottomButtonHeight = screenHeight * 0.10;
         
         return Stack(
           children: [
-            // Study Now Button (invisible clickable area)
             Positioned(
               top: studyNowTop,
               left: horizontalPadding,
               width: buttonWidth,
               height: buttonHeight,
               child: GestureDetector(
-                onTap: () {
-                  context.go('/study');
-                },
+                onTap: () => context.go('/study'),
                 child: Container(
-                  // Make it transparent but still clickable
                   color: Colors.transparent,
                   child: const Center(
                     child: Text(
-                      '', // Empty text - the image shows the button
+                      '',
                       style: TextStyle(color: Colors.transparent),
                     ),
                   ),
@@ -89,22 +81,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             
-            // Check Study Log Button (invisible clickable area)
+            // Study Log button - secondary action for progress tracking
             Positioned(
               top: studyLogTop,
               left: horizontalPadding,
               width: buttonWidth,
               height: buttonHeight,
               child: GestureDetector(
-                onTap: () {
-                  context.go('/study-log');
-                },
+                onTap: () => context.go('/study-log'),
                 child: Container(
-                  // Make it transparent but still clickable
                   color: Colors.transparent,
                   child: const Center(
                     child: Text(
-                      '', // Empty text - the image shows the button
+                      '',
                       style: TextStyle(color: Colors.transparent),
                     ),
                   ),
@@ -112,22 +101,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             
-            // Settings Button (invisible clickable area)
+            // Settings button - left side of bottom row
             Positioned(
               top: bottomButtonsTop,
               left: screenWidth * 0.05,
               width: bottomButtonWidth,
               height: bottomButtonHeight,
               child: GestureDetector(
-                onTap: () {
-                  context.go('/settings');
-                },
+                onTap: () => context.go('/settings'),
                 child: Container(
-                  // Make it transparent but still clickable
                   color: Colors.transparent,
                   child: const Center(
                     child: Text(
-                      '', // Empty text - the image shows the button
+                      '',
                       style: TextStyle(color: Colors.transparent),
                     ),
                   ),
@@ -135,22 +121,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             
-            // Help Button (invisible clickable area)
+            // Help button - right side of bottom row
             Positioned(
               top: bottomButtonsTop,
               right: screenWidth * 0.05,
               width: bottomButtonWidth,
               height: bottomButtonHeight,
               child: GestureDetector(
-                onTap: () {
-                  context.go('/help');
-                },
+                onTap: () => context.go('/help'),
                 child: Container(
-                  // Make it transparent but still clickable
                   color: Colors.transparent,
                   child: const Center(
                     child: Text(
-                      '', // Empty text - the image shows the button
+                      '',
                       style: TextStyle(color: Colors.transparent),
                     ),
                   ),

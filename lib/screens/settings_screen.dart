@@ -17,6 +17,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   void initState() {
     super.initState();
+    // Pre-fill the name field with current user name
     _nameController.text = context.read<AppState>().userName;
   }
 
@@ -40,7 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             const SizedBox(height: 20),
             
-            // Storage Test Card
+            // === User Data Management Section ===
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(AppConstants.cardPadding),
@@ -84,7 +85,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             
             const SizedBox(height: 20),
             
-            // App Stats Card
+            // === Analytics Dashboard Section ===
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(AppConstants.cardPadding),
@@ -97,6 +98,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     const SizedBox(height: 16),
                     
+                    // Real-time data display using Consumer for automatic updates
                     Consumer<AppState>(
                       builder: (context, appState, child) {
                         return Column(
@@ -127,7 +129,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             
             const SizedBox(height: 20),
             
-            // Reset Button
+            // === Data Reset Section ===
+            // Uses confirmation dialog to prevent accidental data loss
             OutlinedButton(
               onPressed: () {
                 showDialog(

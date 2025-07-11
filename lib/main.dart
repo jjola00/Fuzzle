@@ -7,9 +7,12 @@ import 'config/routes.dart';
 import 'shared/providers/app_state.dart';
 import 'shared/services/storage_service.dart';
 
+/// Entry point for the Fuzzle study application.
+/// Configures desktop window management for optimal user experience.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
+  // Desktop platform configuration for consistent window behavior
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     await windowManager.ensureInitialized();
     
@@ -25,11 +28,13 @@ void main() async {
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();
       await windowManager.focus();
+      // Constrain window size to prevent UI layout issues with image-based navigation
       await windowManager.setMinimumSize(const Size(350, 600));
       await windowManager.setMaximumSize(const Size(400, 900));
     });
   }
   
+  // Initialize storage before app starts to prevent state management issues
   await StorageService.init();
   
   runApp(
@@ -40,6 +45,7 @@ void main() async {
   );
 }
 
+/// Root widget that configures the app-wide theme and routing.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

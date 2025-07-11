@@ -19,6 +19,7 @@ class StudyScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
             
+            // === Study Session Overview ===
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(AppConstants.cardPadding),
@@ -48,11 +49,13 @@ class StudyScreen extends StatelessWidget {
             
             const SizedBox(height: 30),
             
+            // === Action Buttons ===
             ElevatedButton(
               onPressed: () {
+                // TODO: Implement study session functionality
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text('Study session started!'),
+                    content: Text('Study session feature coming soon!'),
                     duration: Duration(seconds: AppConstants.snackBarDuration),
                   ),
                 );
@@ -60,9 +63,9 @@ class StudyScreen extends StatelessWidget {
               child: const Text('Start Study Session'),
             ),
             
-            const Spacer(),
+            const SizedBox(height: 16),
             
-            ElevatedButton(
+            OutlinedButton(
               onPressed: () {
                 context.go('/');
               },
