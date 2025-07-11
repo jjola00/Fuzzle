@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+/// Defines the application's visual theme
+/// Configures consistent styling for buttons, cards, and typography across the app.
 class AppTheme {
   static ThemeData get lightTheme => ThemeData(
     primarySwatch: Colors.purple,

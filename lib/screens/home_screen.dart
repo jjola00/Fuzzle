@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../core/constants/app_constants.dart';
 import '../shared/providers/app_state.dart';
+import '../core/constants/app_constants.dart';
 
+/// Home screen with image-based navigation and invisible clickable areas.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -15,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Increment visit count when home screen loads
+    // Track user engagement by incrementing visit count after frame renders
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AppState>().incrementVisit();
     });
@@ -24,202 +25,123 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppConstants.backgroundColor,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(AppConstants.defaultPadding),
-          child: Column(
-            children: [
-              // Top spacing
-              const SizedBox(height: 60),
-              
-              // Fuzzle Logo Section
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 32,
-                  vertical: 20,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Cat character (using emoji for simplicity)
-                    const Text(
-                      '🐱',
-                      style: TextStyle(fontSize: 32),
-                    ),
-                    const SizedBox(width: 12),
-                    Text(
-                      AppConstants.appName,
-                      style: TextStyle(
-                        fontSize: AppConstants.logoFontSize,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              
-              const SizedBox(height: AppConstants.spaceBetweenSections),
-              
-              // Main Action Buttons
-              Column(
-                children: [
-                  // Study Now Button
-                  SizedBox(
-                    width: double.infinity,
-                    height: AppConstants.buttonHeight,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        context.go('/study');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppConstants.primaryButtonColor,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(AppConstants.buttonBorderRadius),
-                        ),
-                        elevation: 4,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'STUDY NOW',
-                            style: TextStyle(
-                              fontSize: AppConstants.buttonFontSize,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.2,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          const Text('🏆', style: TextStyle(fontSize: 24)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  
-                  const SizedBox(height: AppConstants.spaceBetweenMainButtons),
-                  
-                  // Check Study Log Button
-                  SizedBox(
-                    width: double.infinity,
-                    height: AppConstants.buttonHeight,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        context.go('/study-log');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppConstants.secondaryButtonColor,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(AppConstants.buttonBorderRadius),
-                        ),
-                        elevation: 4,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'CHECK STUDY LOG',
-                            style: TextStyle(
-                              fontSize: AppConstants.buttonFontSize,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.2,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          const Text('📋', style: TextStyle(fontSize: 24)),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              
-              // Spacer to push bottom buttons down
-              const Spacer(),
-              
-              // Bottom Action Buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  // Settings Button
-                  _buildBottomButton(
-                    context,
-                    'SETTINGS',
-                    Icons.settings,
-                    () => context.go('/settings'),
-                  ),
-                  
-                  // Help Button
-                  _buildBottomButton(
-                    context,
-                    'HELP',
-                    Icons.help_outline,
-                    () => context.go('/help'),
-                  ),
-                ],
-              ),
-              
-              const SizedBox(height: 40),
-            ],
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              AppConstants.homePageImage,
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
+          
+          // Invisible clickable areas positioned over visual buttons
+          SafeArea(
+            child: _buildClickableAreas(context),
+          ),
+        ],
       ),
     );
   }
-  
-  Widget _buildBottomButton(
-    BuildContext context,
-    String label,
-    IconData icon,
-    VoidCallback onPressed,
-  ) {
-    return Column(
-      children: [
-        SizedBox(
-          width: AppConstants.bottomButtonSize,
-          height: AppConstants.bottomButtonSize,
-          child: ElevatedButton(
-            onPressed: onPressed,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppConstants.bottomButtonColor,
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+
+  Widget _buildClickableAreas(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Calculate responsive dimensions based on screen size
+        double screenWidth = constraints.maxWidth;
+        double screenHeight = constraints.maxHeight;
+        
+        // Responsive button dimensions using constants
+        double buttonWidth = screenWidth * AppConstants.mainButtonWidthRatio;
+        double buttonHeight = screenHeight * AppConstants.mainButtonHeightRatio;
+        double horizontalPadding = screenWidth * AppConstants.horizontalPaddingRatio;
+        
+        // Button positions using constants
+        double studyNowTop = screenHeight * AppConstants.studyNowTopRatio;
+        double studyLogTop = screenHeight * AppConstants.studyLogTopRatio;
+        double bottomButtonsTop = screenHeight * AppConstants.bottomButtonsTopRatio;
+        double bottomButtonWidth = screenWidth * AppConstants.bottomButtonWidthRatio;
+        double bottomButtonHeight = screenHeight * AppConstants.bottomButtonHeightRatio;
+        
+        return Stack(
+          children: [
+            // Study Now button - accessible invisible overlay
+            Positioned(
+              top: studyNowTop,
+              left: horizontalPadding,
+              width: buttonWidth,
+              height: buttonHeight,
+              child: Semantics(
+                label: 'Start Study Session',
+                hint: 'Navigate to the study screen to begin a new study session',
+                button: true,
+                child: GestureDetector(
+                  onTap: () => context.go('/study'),
+                  child: Container(
+                    color: Colors.transparent,
+                  ),
+                ),
               ),
-              elevation: 3,
-              padding: EdgeInsets.zero,
             ),
-            child: Icon(
-              icon,
-              size: 32,
-              color: Colors.white,
+            
+            // Study Log button - accessible invisible overlay  
+            Positioned(
+              top: studyLogTop,
+              left: horizontalPadding,
+              width: buttonWidth,
+              height: buttonHeight,
+              child: Semantics(
+                label: 'View Study Log',
+                hint: 'Navigate to the study log to review your study history and progress',
+                button: true,
+                child: GestureDetector(
+                  onTap: () => context.go('/study-log'),
+                  child: Container(
+                    color: Colors.transparent,
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            color: Colors.black.withOpacity(0.7),
-          ),
-        ),
-      ],
+            
+            // Settings button - accessible invisible overlay
+            Positioned(
+              top: bottomButtonsTop,
+              left: screenWidth * AppConstants.bottomButtonMarginRatio,
+              width: bottomButtonWidth,
+              height: bottomButtonHeight,
+              child: Semantics(
+                label: 'Settings',
+                hint: 'Navigate to settings to manage your preferences and app data',
+                button: true,
+                child: GestureDetector(
+                  onTap: () => context.go('/settings'),
+                  child: Container(
+                    color: Colors.transparent,
+                  ),
+                ),
+              ),
+            ),
+            
+            // Help button - accessible invisible overlay
+            Positioned(
+              top: bottomButtonsTop,
+              right: screenWidth * AppConstants.bottomButtonMarginRatio,
+              width: bottomButtonWidth,
+              height: bottomButtonHeight,
+              child: Semantics(
+                label: 'Help & Support',
+                hint: 'Navigate to help section for guidance and troubleshooting',
+                button: true,
+                child: GestureDetector(
+                  onTap: () => context.go('/help'),
+                  child: Container(
+                    color: Colors.transparent,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

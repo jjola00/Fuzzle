@@ -126,4 +126,5 @@ secrets.dart
 *.sqlite*
 logs/
 site/
+*.txt
 

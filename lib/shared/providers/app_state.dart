@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import '../../core/constants/app_constants.dart';
 import '../services/storage_service.dart';
 
+/// Manages application-wide state for user preferences and usage analytics.
+/// Automatically persists changes to storage and notifies listeners of updates.
 class AppState extends ChangeNotifier {
   String _userName = AppConstants.defaultUserName;
   int _visitCount = AppConstants.defaultVisitCount;
   
+  /// Current user name for personalized greetings and preferences.
   String get userName => _userName;
+  
+  /// Total number of times the user has visited the home screen.
+  /// Used for engagement analytics and progressive onboarding.
   int get visitCount => _visitCount;
   
+  /// Loads initial state from persistent storage when AppState is created.
   AppState() {
     _loadData();
   }

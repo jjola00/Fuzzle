@@ -19,6 +19,7 @@ class StudyLogScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
             
+            // === Study Log Overview ===
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(AppConstants.cardPadding),
@@ -48,7 +49,7 @@ class StudyLogScreen extends StatelessWidget {
             
             const SizedBox(height: 30),
             
-            // Placeholder for study log entries
+            // === Study Log Entries (Placeholder) ===
             Expanded(
               child: Card(
                 child: Padding(
@@ -57,15 +58,17 @@ class StudyLogScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Recent Study Sessions',
-                        style: Theme.of(context).textTheme.titleLarge,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 16),
                       Expanded(
                         child: Center(
                           child: Text(
-                            'No study sessions yet.\nStart studying to see your progress here!',
-                            style: Theme.of(context).textTheme.bodyMedium,
+                            'No study sessions recorded yet.\nStart your first session to see your progress here!',
                             textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
                           ),
                         ),
                       ),
@@ -77,7 +80,17 @@ class StudyLogScreen extends StatelessWidget {
             
             const SizedBox(height: 20),
             
+            // === Navigation Actions ===
             ElevatedButton(
+              onPressed: () {
+                context.go('/study');
+              },
+              child: const Text('Start New Session'),
+            ),
+            
+            const SizedBox(height: 16),
+            
+            OutlinedButton(
               onPressed: () {
                 context.go('/');
               },

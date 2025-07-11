@@ -1,19 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Provides a unified interface for persistent storage operations.
+/// Handles SharedPreferences initialization and graceful error recovery.
 class StorageService {
   static SharedPreferences? _prefs;
   
+  /// Initialize the storage service. Must be called before using any other methods.
   static Future<void> init() async {
     try {
       _prefs = await SharedPreferences.getInstance();
     } catch (e) {
-      // Handle initialization error
       debugPrint('Failed to initialize SharedPreferences: $e');
       rethrow;
     }
   }
   
+  /// Returns true if the storage service has been properly initialized.
   static bool get isInitialized => _prefs != null;
   
   static Future<bool> saveString(String key, String value) async {
