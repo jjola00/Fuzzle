@@ -10,12 +10,11 @@ import 'shared/services/storage_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Configure window for desktop platforms to be phone-sized
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     await windowManager.ensureInitialized();
     
     WindowOptions windowOptions = const WindowOptions(
-      size: Size(375, 812), // iPhone-like dimensions
+      size: Size(375, 812), 
       center: true,
       backgroundColor: Colors.transparent,
       skipTaskbar: false,

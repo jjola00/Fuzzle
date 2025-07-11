@@ -33,4 +33,8 @@ class AppConstants {
   static const Color secondaryButtonColor = Color(0xFF9FA3C7);
   static const Color backgroundColor = Color(0xFFE8EAF6);
   static const Color bottomButtonColor = Color(0xFFB0BEC5);
+  
+  // Gradient Background Colors
+  static const Color gradientStartColor = Color(0xFF7794B6);
+  static const Color gradientEndColor = Color(0xFFDFFAFF);
 } 
