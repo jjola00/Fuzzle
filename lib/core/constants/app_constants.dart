@@ -40,6 +40,27 @@ class AppConstants {
   static const double spaceBetweenMainButtons = 24.0;
   /// Vertical spacing between different UI sections
   static const double spaceBetweenSections = 40.0;
+  static const String homePageImage = 'lib/static/homePage.png';
+  
+  // === Home Screen Positioning Constants ===
+  /// Main button width as percentage of screen width
+  static const double mainButtonWidthRatio = 0.8;
+  /// Main button height as percentage of screen height
+  static const double mainButtonHeightRatio = 0.08;
+  /// Horizontal padding as percentage of screen width
+  static const double horizontalPaddingRatio = 0.1;
+  /// Study Now button top position as percentage of screen height
+  static const double studyNowTopRatio = 0.38;
+  /// Study Log button top position as percentage of screen height
+  static const double studyLogTopRatio = 0.51;
+  /// Bottom buttons top position as percentage of screen height
+  static const double bottomButtonsTopRatio = 0.85;
+  /// Bottom button width as percentage of screen width
+  static const double bottomButtonWidthRatio = 0.4;
+  /// Bottom button height as percentage of screen height
+  static const double bottomButtonHeightRatio = 0.10;
+  /// Bottom button side margins as percentage of screen width
+  static const double bottomButtonMarginRatio = 0.05;
   
   static const Color primaryButtonColor = Color(0xFF5A5A6B);
   static const Color secondaryButtonColor = Color(0xFF9FA3C7);

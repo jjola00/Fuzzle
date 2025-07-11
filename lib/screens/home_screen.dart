@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../shared/providers/app_state.dart';
+import '../core/constants/app_constants.dart';
 
 /// Home screen with image-based navigation and invisible clickable areas.
 class HomeScreen extends StatefulWidget {
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'lib/static/homePage.png',
+              AppConstants.homePageImage,
               fit: BoxFit.cover,
             ),
           ),
@@ -49,93 +50,91 @@ class _HomeScreenState extends State<HomeScreen> {
         double screenWidth = constraints.maxWidth;
         double screenHeight = constraints.maxHeight;
         
-        // Responsive button dimensions based on screen size
-        double buttonWidth = screenWidth * 0.8;
-        double buttonHeight = screenHeight * 0.08;
-        double horizontalPadding = screenWidth * 0.1;
+        // Responsive button dimensions using constants
+        double buttonWidth = screenWidth * AppConstants.mainButtonWidthRatio;
+        double buttonHeight = screenHeight * AppConstants.mainButtonHeightRatio;
+        double horizontalPadding = screenWidth * AppConstants.horizontalPaddingRatio;
         
-        double studyNowTop = screenHeight * 0.38;
-        double studyLogTop = screenHeight * 0.51;
-        double bottomButtonsTop = screenHeight * 0.85;
-        double bottomButtonWidth = screenWidth * 0.4;
-        double bottomButtonHeight = screenHeight * 0.10;
+        // Button positions using constants
+        double studyNowTop = screenHeight * AppConstants.studyNowTopRatio;
+        double studyLogTop = screenHeight * AppConstants.studyLogTopRatio;
+        double bottomButtonsTop = screenHeight * AppConstants.bottomButtonsTopRatio;
+        double bottomButtonWidth = screenWidth * AppConstants.bottomButtonWidthRatio;
+        double bottomButtonHeight = screenHeight * AppConstants.bottomButtonHeightRatio;
         
         return Stack(
           children: [
+            // Study Now button - accessible invisible overlay
             Positioned(
               top: studyNowTop,
               left: horizontalPadding,
               width: buttonWidth,
               height: buttonHeight,
-              child: GestureDetector(
-                onTap: () => context.go('/study'),
-                child: Container(
-                  color: Colors.transparent,
-                  child: const Center(
-                    child: Text(
-                      '',
-                      style: TextStyle(color: Colors.transparent),
-                    ),
+              child: Semantics(
+                label: 'Start Study Session',
+                hint: 'Navigate to the study screen to begin a new study session',
+                button: true,
+                child: GestureDetector(
+                  onTap: () => context.go('/study'),
+                  child: Container(
+                    color: Colors.transparent,
                   ),
                 ),
               ),
             ),
             
-            // Study Log button - secondary action for progress tracking
+            // Study Log button - accessible invisible overlay  
             Positioned(
               top: studyLogTop,
               left: horizontalPadding,
               width: buttonWidth,
               height: buttonHeight,
-              child: GestureDetector(
-                onTap: () => context.go('/study-log'),
-                child: Container(
-                  color: Colors.transparent,
-                  child: const Center(
-                    child: Text(
-                      '',
-                      style: TextStyle(color: Colors.transparent),
-                    ),
+              child: Semantics(
+                label: 'View Study Log',
+                hint: 'Navigate to the study log to review your study history and progress',
+                button: true,
+                child: GestureDetector(
+                  onTap: () => context.go('/study-log'),
+                  child: Container(
+                    color: Colors.transparent,
                   ),
                 ),
               ),
             ),
             
-            // Settings button - left side of bottom row
+            // Settings button - accessible invisible overlay
             Positioned(
               top: bottomButtonsTop,
-              left: screenWidth * 0.05,
+              left: screenWidth * AppConstants.bottomButtonMarginRatio,
               width: bottomButtonWidth,
               height: bottomButtonHeight,
-              child: GestureDetector(
-                onTap: () => context.go('/settings'),
-                child: Container(
-                  color: Colors.transparent,
-                  child: const Center(
-                    child: Text(
-                      '',
-                      style: TextStyle(color: Colors.transparent),
-                    ),
+              child: Semantics(
+                label: 'Settings',
+                hint: 'Navigate to settings to manage your preferences and app data',
+                button: true,
+                child: GestureDetector(
+                  onTap: () => context.go('/settings'),
+                  child: Container(
+                    color: Colors.transparent,
                   ),
                 ),
               ),
             ),
             
-            // Help button - right side of bottom row
+            // Help button - accessible invisible overlay
             Positioned(
               top: bottomButtonsTop,
-              right: screenWidth * 0.05,
+              right: screenWidth * AppConstants.bottomButtonMarginRatio,
               width: bottomButtonWidth,
               height: bottomButtonHeight,
-              child: GestureDetector(
-                onTap: () => context.go('/help'),
-                child: Container(
-                  color: Colors.transparent,
-                  child: const Center(
-                    child: Text(
-                      '',
-                      style: TextStyle(color: Colors.transparent),
-                    ),
+              child: Semantics(
+                label: 'Help & Support',
+                hint: 'Navigate to help section for guidance and troubleshooting',
+                button: true,
+                child: GestureDetector(
+                  onTap: () => context.go('/help'),
+                  child: Container(
+                    color: Colors.transparent,
                   ),
                 ),
               ),
