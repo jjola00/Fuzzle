@@ -70,62 +70,66 @@ class _LoadingScreenState extends State<LoadingScreen>
       body: SafeArea(
         child: Column(
           children: [
-            // Top section with animated Fuzzle logo (positioned higher)
+            // Top section with animated Fuzzle logo
             Expanded(
               flex: 3,
-              child: Center(
-                child: AnimatedBuilder(
-                  animation: _bounceAnimation,
-                  builder: (context, child) {
-                    return Transform.translate(
-                      offset: Offset(0, -_bounceAnimation.value),
-                      child: Image.asset(
-                        AppConstants.fuzzleLogoImage,
-                        width: 200,
-                        height: 120,
-                        fit: BoxFit.contain,
-                        errorBuilder: (context, error, stackTrace) {
-                          // Fallback if logo image doesn't load
-                          return Container(
-                            width: 200,
-                            height: 120,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.school,
-                                size: 48,
-                                color: Colors.grey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  AnimatedBuilder(
+                    animation: _bounceAnimation,
+                    builder: (context, child) {
+                      return Transform.translate(
+                        offset: Offset(0, -_bounceAnimation.value),
+                        child: Image.asset(
+                          AppConstants.fuzzleLogoImage,
+                          width: 200,
+                          height: 120,
+                          fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) {
+                            // Fallback if logo image doesn't load
+                            return Container(
+                              width: 200,
+                              height: 120,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  },
-                ),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.school,
+                                  size: 48,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 40), // Space between logo and cat
+                ],
               ),
             ),
             
             // Bottom section with loading cat and dots
             Expanded(
-              flex: 2,
+              flex: 5,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // Loading cat positioned right above dots
+                  // Loading cat - made bigger and positioned higher
                   Image.asset(
                     AppConstants.loadingCatImage,
-                    width: 80,
-                    height: 60,
+                    width: 240,
+                    height: 180,
                     fit: BoxFit.contain,
                     errorBuilder: (context, error, stackTrace) {
                       // Fallback if cat image doesn't load
                       return Container(
-                        width: 80,
-                        height: 60,
+                        width: 240,
+                        height: 180,
                         decoration: BoxDecoration(
                           color: Colors.grey[300],
                           borderRadius: BorderRadius.circular(8),
@@ -133,7 +137,7 @@ class _LoadingScreenState extends State<LoadingScreen>
                         child: const Center(
                           child: Icon(
                             Icons.pets,
-                            size: 32,
+                            size: 48,
                             color: Colors.grey,
                           ),
                         ),
