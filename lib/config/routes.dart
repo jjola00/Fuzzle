@@ -6,6 +6,7 @@ import '../screens/help_screen.dart';
 import '../screens/feature1_screen.dart';
 import '../screens/feature2_screen.dart';
 import '../screens/settings_screen.dart';
+import '../screens/loading_screen.dart';
 
 /// Routing configuration
 /// Provides clean URLs and easy navigation management across the app.
@@ -39,6 +40,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/settings',
       builder: (context, state) => const SettingsScreen(),
+    ),
+    GoRoute(
+      path: '/loading',
+      builder: (context, state) => const LoadingScreen(),
     ),
   ],
 );
