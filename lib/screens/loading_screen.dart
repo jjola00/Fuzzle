@@ -52,7 +52,9 @@ class _LoadingScreenState extends State<LoadingScreen>
     ));
     
     // Start animations
+    // The bounce animation runs indefinitely until the widget is disposed.
     _bounceController.repeat(reverse: true);
+    // The dots animation runs indefinitely until the widget is disposed.
     _dotsController.repeat();
   }
 
