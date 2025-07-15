@@ -64,7 +64,7 @@ class AppConstants {
   static const double studyNowTopRatio = 0.33;        // Top position: 42% from top
   
   // Study Log button position  
-  static const double studyLogTopRatio = 0.55;        // Top position: 55% from top
+  static const double studyLogTopRatio = 0.445;        // Top position: 55% from top
   
   // Bottom buttons (Settings & Help)
   static const double bottomButtonsTopRatio = 0.88;   // Top position: 88% from top
