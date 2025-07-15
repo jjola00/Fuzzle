@@ -56,26 +56,26 @@ class AppConstants {
   // where 0.0 is top/left edge and 1.0 is bottom/right edge
   
   // Main buttons (Study Now & Study Log)
-  static const double mainButtonWidthRatio = 0.72;    // Button width: 75% of screen width
-  static const double mainButtonHeightRatio = 0.09;   // Button height: 9% of screen height
-  static const double horizontalPaddingRatio = 0.14; // Left margin: 12.5% of screen width
+  static const double mainButtonWidthRatio = 0.72;    // Button width
+  static const double mainButtonHeightRatio = 0.09;   // Button height
+  static const double horizontalPaddingRatio = 0.14; // Left margin
   
   // Study Now button position
-  static const double studyNowTopRatio = 0.33;        // Top position: 42% from top
+  static const double studyNowTopRatio = 0.33;        // Top position
   
   // Study Log button position  
-  static const double studyLogTopRatio = 0.445;        // Top position: 55% from top
+  static const double studyLogTopRatio = 0.445;        // Top position
   
   // Bottom buttons (Settings & Help)
-  static const double bottomButtonsTopRatio = 0.685;   // Top position: 88% from top
-  static const double bottomButtonWidthRatio = 0.35;  // Button width: 35% of screen width
-  static const double bottomButtonHeightRatio = 0.07; // Button height: 8% of screen height
-  static const double bottomButtonMarginRatio = 0.07; // Side margins: 8% of screen width
+  static const double bottomButtonsTopRatio = 0.685;   // Top position
+  static const double bottomButtonWidthRatio = 0.35;  // Button width
+  static const double bottomButtonHeightRatio = 0.07; // Button height
+  static const double bottomButtonMarginRatio = 0.07; // Side margins
   
-  // Bluetooth pairing button (if visible in new image)
-  static const double bluetoothButtonTopRatio = 0.99;  // Top position: 70% from top
-  static const double bluetoothButtonWidthRatio = 0.0000000001; // Button width: 50% of screen width
-  static const double bluetoothButtonHeightRatio = 0.000000000001; // Button height: 7% of screen height
+  // Bluetooth pairing button 
+  static const double bluetoothButtonTopRatio = 0.65;  // Top position
+  static const double bluetoothButtonWidthRatio = 0.6; // Button width
+  static const double bluetoothButtonHeightRatio = 0.08; // Button height
   
   static const Color primaryButtonColor = Color(0xFF5A5A6B);
   static const Color secondaryButtonColor = Color(0xFF9FA3C7);
