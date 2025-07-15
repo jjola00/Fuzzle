@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Positioned(
             top: 60,
             right: 20,
-            child: Container(
+            child: SizedBox(
               width: 120,
               child: ElevatedButton.icon(
                 onPressed: () => context.go('/device-pairing'),
