@@ -14,7 +14,7 @@ class DevicePairingScreen extends StatefulWidget {
   State<DevicePairingScreen> createState() => _DevicePairingScreenState();
 }
 
-class _DevicePairingScreenState extends State<DevicePairingScreen> {
+class _DevicePairingScreenState extends State<DevicePairingScreen> with WidgetsBindingObserver {
   final custom_bluetooth.BluetoothService _bluetoothService = custom_bluetooth.BluetoothService();
   List<flutter_blue_plus.BluetoothDevice> _connectedDevices = [];
   List<flutter_blue_plus.ScanResult> _discoveredDevices = [];
@@ -24,13 +24,63 @@ class _DevicePairingScreenState extends State<DevicePairingScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _initializeBluetooth();
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _bluetoothService.stopDiscovery();
     super.dispose();
+  }
+
+  /// Handle app lifecycle state changes
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    debugPrint('App lifecycle state changed: $state');
+    
+    if (state == AppLifecycleState.resumed) {
+      // App came back to foreground, refresh Bluetooth state
+      debugPrint('App resumed, refreshing Bluetooth state...');
+      _refreshBluetoothState();
+    }
+  }
+
+  /// Called when the screen is revisited
+  @override
+  void didUpdateWidget(DevicePairingScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Refresh the state when screen is revisited
+    _refreshBluetoothState();
+  }
+
+  /// Refresh Bluetooth state and connected devices
+  Future<void> _refreshBluetoothState() async {
+    debugPrint('Refreshing Bluetooth state...');
+    
+    try {
+      // Check if Bluetooth is available
+      bool isAvailable = await _bluetoothService.isBluetoothAvailable();
+      debugPrint('Bluetooth availability on refresh: $isAvailable');
+      
+      // Get current adapter state directly
+      final currentState = await flutter_blue_plus.FlutterBluePlus.adapterState.first;
+      debugPrint('Current Bluetooth adapter state on refresh: $currentState');
+      
+      if (mounted) {
+        setState(() {
+          _adapterState = currentState;
+        });
+      }
+      
+      // Refresh connected devices
+      _loadConnectedDevices();
+      
+    } catch (e) {
+      debugPrint('Error refreshing Bluetooth state: $e');
+    }
   }
 
   /// Initialize Bluetooth service and load connected devices
@@ -40,28 +90,41 @@ class _DevicePairingScreenState extends State<DevicePairingScreen> {
       
       // Set up listeners for real-time updates
       _bluetoothService.stateStream.listen((state) {
-        setState(() {
-          _adapterState = state;
-        });
+        if (mounted) {
+          setState(() {
+            _adapterState = state;
+          });
+        }
         debugPrint('Bluetooth adapter state changed: $state');
       });
 
       _bluetoothService.devicesStream.listen((devices) {
-        setState(() {
-          _discoveredDevices = devices;
-        });
+        if (mounted) {
+          setState(() {
+            _discoveredDevices = devices;
+          });
+        }
         debugPrint('Discovered devices updated: ${devices.length} devices');
+        // Log device names for debugging
+        for (var device in devices) {
+          final deviceName = device.device.platformName.isNotEmpty ? device.device.platformName : 'Unknown';
+          debugPrint('Device: $deviceName (${device.device.remoteId}) - Signal: ${device.rssi}dBm');
+        }
       });
 
       _bluetoothService.scanningStream.listen((isScanning) {
-        setState(() {
-          _isScanning = isScanning;
-        });
+        if (mounted) {
+          setState(() {
+            _isScanning = isScanning;
+          });
+        }
         debugPrint('Scanning state changed: $isScanning');
       });
 
-      // Load already connected devices
+      // Load already connected devices and refresh state
       _loadConnectedDevices();
+      _refreshBluetoothState();
+      
     } catch (e) {
       debugPrint('Failed to initialize Bluetooth: $e');
       _showErrorSnackBar('Failed to initialize Bluetooth: $e');
@@ -242,6 +305,11 @@ class _DevicePairingScreenState extends State<DevicePairingScreen> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: _refreshBluetoothState,
+            tooltip: 'Refresh',
+          ),
+          IconButton(
             icon: Icon(_isScanning ? Icons.stop : Icons.search),
             onPressed: _isScanning ? _bluetoothService.stopDiscovery : _startScanning,
             tooltip: _isScanning ? 'Stop Scanning' : 'Start Scanning',
@@ -253,6 +321,8 @@ class _DevicePairingScreenState extends State<DevicePairingScreen> {
   }
 
   Widget _buildBody() {
+    debugPrint('Building body with ${_discoveredDevices.length} discovered devices');
+    
     if (_adapterState == flutter_blue_plus.BluetoothAdapterState.off) {
       return _buildBluetoothOffMessage();
     }
@@ -284,9 +354,18 @@ class _DevicePairingScreenState extends State<DevicePairingScreen> {
           ],
           
           // Available devices section
-          Text(
-            'Available Devices',
-            style: Theme.of(context).textTheme.titleLarge,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Available Devices',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              Text(
+                '(${_discoveredDevices.length})',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
           ),
           const SizedBox(height: 8),
           
@@ -296,9 +375,7 @@ class _DevicePairingScreenState extends State<DevicePairingScreen> {
           const SizedBox(height: 8),
           
           Expanded(
-            child: _discoveredDevices.isEmpty
-                ? _buildEmptyDeviceList()
-                : _buildDiscoveredDevicesList(),
+            child: _buildDiscoveredDevicesList(),
           ),
           
           const SizedBox(height: 16),
@@ -453,12 +530,20 @@ class _DevicePairingScreenState extends State<DevicePairingScreen> {
   }
 
   Widget _buildDiscoveredDevicesList() {
+    debugPrint('Building discovered devices list with ${_discoveredDevices.length} devices');
+    
+    if (_discoveredDevices.isEmpty) {
+      return _buildEmptyDeviceList();
+    }
+
     return ListView.builder(
       itemCount: _discoveredDevices.length,
       itemBuilder: (context, index) {
         final scanResult = _discoveredDevices[index];
         final device = scanResult.device;
         final deviceName = device.platformName.isNotEmpty ? device.platformName : 'Unknown Device';
+        
+        debugPrint('Building device tile for: $deviceName (${device.remoteId})');
         
         return Card(
           margin: const EdgeInsets.only(bottom: 8),

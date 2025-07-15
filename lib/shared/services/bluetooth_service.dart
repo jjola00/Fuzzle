@@ -155,27 +155,33 @@ class BluetoothService {
     }
     
     try {
+      debugPrint('Clearing previous discovered devices...');
       _discoveredDevices.clear();
       _devicesController.add(_discoveredDevices);
       
+      debugPrint('Setting scanning state to true...');
       _isScanning = true;
       _scanningController.add(true);
       
       // Start scanning for devices
+      debugPrint('Starting Bluetooth scan...');
       await FlutterBluePlus.startScan(
         timeout: const Duration(seconds: 15),
         androidUsesFineLocation: false,
       );
       
       // Listen for scan results
+      debugPrint('Setting up scan results listener...');
       _scanSubscription = FlutterBluePlus.scanResults.listen(
         (results) {
+          debugPrint('Received scan results: ${results.length} devices');
           _discoveredDevices = results;
           _devicesController.add(_discoveredDevices);
           
           // Log discovered devices
           for (ScanResult result in results) {
-            debugPrint('Discovered device: ${result.device.platformName.isNotEmpty ? result.device.platformName : 'Unknown'} (${result.device.remoteId})');
+            final deviceName = result.device.platformName.isNotEmpty ? result.device.platformName : 'Unknown';
+            debugPrint('Discovered device: $deviceName (${result.device.remoteId}) - Signal: ${result.rssi}dBm');
           }
         },
         onError: (error) {
@@ -186,10 +192,14 @@ class BluetoothService {
       
       // Listen for scan completion
       FlutterBluePlus.isScanning.listen((isScanning) {
+        debugPrint('Scan state changed: $isScanning');
         if (!isScanning && _isScanning) {
+          debugPrint('Scan completed, stopping discovery...');
           _stopDiscovery();
         }
       });
+      
+      debugPrint('Bluetooth scan started successfully');
       
     } catch (e) {
       debugPrint('Failed to start discovery: $e');
@@ -200,6 +210,7 @@ class BluetoothService {
 
   /// Stop ongoing device discovery
   void _stopDiscovery() {
+    debugPrint('Stopping device discovery...');
     _scanSubscription?.cancel();
     _scanSubscription = null;
     _isScanning = false;
@@ -210,6 +221,7 @@ class BluetoothService {
   /// Stop device discovery manually
   Future<void> stopDiscovery() async {
     try {
+      debugPrint('Manual stop discovery requested...');
       await FlutterBluePlus.stopScan();
       _stopDiscovery();
     } catch (e) {
