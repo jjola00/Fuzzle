@@ -40,6 +40,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      // Temporary floating button to test loading screen
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => context.go('/loading'),
+        backgroundColor: AppConstants.primaryButtonColor,
+        child: const Icon(Icons.play_arrow, color: Colors.white),
+      ),
     );
   }
 

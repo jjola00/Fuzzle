@@ -75,6 +75,15 @@ class Feature1Screen extends StatelessWidget {
               child: const Text('Go to Feature 2'),
             ),
             
+            const SizedBox(height: 16),
+            
+            OutlinedButton(
+              onPressed: () {
+                context.go('/loading');
+              },
+              child: const Text('Test Loading Screen'),
+            ),
+            
             const Spacer(),
             
             OutlinedButton(

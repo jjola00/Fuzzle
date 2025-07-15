@@ -20,6 +20,16 @@ class AppConstants {
   /// Current version for display in UI
   static const String appVersion = '1.0.0';
   
+  // === Asset Paths ===
+  /// Main home screen background image with visual button designs
+  static const String homePageImage = 'lib/static/homePage.png';
+  /// Loading screen background image
+  static const String loadingPageImage = 'lib/static/loadingPage.png';
+  /// Fuzzle logo image for branding and loading screens
+  static const String fuzzleLogoImage = 'lib/static/fuzzleLogo.png';
+  /// Loading cat image for loading animation
+  static const String loadingCatImage = 'lib/static/loadingCat.png';
+  
   static const double defaultPadding = 16.0;
   static const double cardPadding = 20.0;
   static const double iconSize = 48.0;
@@ -40,7 +50,6 @@ class AppConstants {
   static const double spaceBetweenMainButtons = 24.0;
   /// Vertical spacing between different UI sections
   static const double spaceBetweenSections = 40.0;
-  static const String homePageImage = 'lib/static/homePage.png';
   
   // === Home Screen Positioning Constants ===
   /// Main button width as percentage of screen width
