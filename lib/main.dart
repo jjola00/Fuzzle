@@ -13,12 +13,12 @@ import 'shared/services/bluetooth_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Desktop platform configuration for consistent window behavior
+  // Desktop platform configuration for new home screen image
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     await windowManager.ensureInitialized();
     
     WindowOptions windowOptions = const WindowOptions(
-      size: Size(375, 812), 
+      size: Size(420, 900), // Updated for new home screen image proportions
       center: true,
       backgroundColor: Colors.transparent,
       skipTaskbar: false,
@@ -29,9 +29,9 @@ void main() async {
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();
       await windowManager.focus();
-      // Constrain window size to prevent UI layout issues with image-based navigation
-      await windowManager.setMinimumSize(const Size(350, 600));
-      await windowManager.setMaximumSize(const Size(400, 900));
+      // Updated window constraints for new image layout
+      await windowManager.setMinimumSize(const Size(380, 800));
+      await windowManager.setMaximumSize(const Size(480, 1000));
     });
   }
   

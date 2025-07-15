@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../shared/providers/app_state.dart';
 import '../core/constants/app_constants.dart';
 
-/// Home screen with image-based navigation and invisible clickable areas.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -16,7 +15,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Track user engagement by incrementing visit count after frame renders
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AppState>().incrementVisit();
     });
@@ -34,17 +32,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           
-          // Invisible clickable areas positioned over visual buttons
           SafeArea(
             child: _buildClickableAreas(context),
           ),
           
-          // Visible Pairing button for testing Bluetooth functionality
           Positioned(
-            top: 60, // Account for status bar
+            top: 60,
             right: 20,
-            child: Container(
-              width: 120, // Fixed width to prevent infinite width constraints
+            child: SizedBox(
+              width: 120,
               child: ElevatedButton.icon(
                 onPressed: () => context.go('/device-pairing'),
                 icon: const Icon(Icons.bluetooth, size: 18),
@@ -62,8 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      // Temporary floating button to test loading screen
-      // TODO: Remove this once the loading screen is implemented
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.go('/loading'),
         backgroundColor: AppConstants.primaryButtonColor,
@@ -75,16 +69,17 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildClickableAreas(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        // Calculate responsive dimensions based on screen size
+        // DIMENSION CALCULATION - Uses ratios from AppConstants
+        // To adjust button positions: modify ratios in app_constants.dart
         double screenWidth = constraints.maxWidth;
         double screenHeight = constraints.maxHeight;
         
-        // Responsive button dimensions using constants
+        // Main button dimensions
         double buttonWidth = screenWidth * AppConstants.mainButtonWidthRatio;
         double buttonHeight = screenHeight * AppConstants.mainButtonHeightRatio;
         double horizontalPadding = screenWidth * AppConstants.horizontalPaddingRatio;
         
-        // Button positions using constants
+        // Button positions - adjust ratios in AppConstants to move buttons
         double studyNowTop = screenHeight * AppConstants.studyNowTopRatio;
         double studyLogTop = screenHeight * AppConstants.studyLogTopRatio;
         double bluetoothButtonTop = screenHeight * AppConstants.bluetoothButtonTopRatio;
@@ -96,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
         
         return Stack(
           children: [
-            // Study Now button - accessible invisible overlay
+            // STUDY NOW BUTTON - Position: studyNowTopRatio from top
             Positioned(
               top: studyNowTop,
               left: horizontalPadding,
@@ -104,7 +99,6 @@ class _HomeScreenState extends State<HomeScreen> {
               height: buttonHeight,
               child: Semantics(
                 label: 'Start Study Session',
-                hint: 'Navigate to the study screen to begin a new study session',
                 button: true,
                 child: GestureDetector(
                   onTap: () => context.go('/study'),
@@ -115,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             
-            // Study Log button - accessible invisible overlay  
+            // STUDY LOG BUTTON - Position: studyLogTopRatio from top
             Positioned(
               top: studyLogTop,
               left: horizontalPadding,
@@ -123,7 +117,6 @@ class _HomeScreenState extends State<HomeScreen> {
               height: buttonHeight,
               child: Semantics(
                 label: 'View Study Log',
-                hint: 'Navigate to the study log to review your study history and progress',
                 button: true,
                 child: GestureDetector(
                   onTap: () => context.go('/study-log'),
@@ -134,15 +127,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             
-            // Bluetooth Pairing button - accessible invisible overlay for hardware device connection
+            // BLUETOOTH BUTTON - Position: bluetoothButtonTopRatio from top, centered
             Positioned(
               top: bluetoothButtonTop,
-              left: (screenWidth - bluetoothButtonWidth) / 2, // Center horizontally
+              left: (screenWidth - bluetoothButtonWidth) / 2,
               width: bluetoothButtonWidth,
               height: bluetoothButtonHeight,
               child: Semantics(
                 label: 'Pair Device',
-                hint: 'Navigate to device pairing screen to connect with your Fuzzle hardware prototype',
                 button: true,
                 child: GestureDetector(
                   onTap: () => context.go('/device-pairing'),
@@ -153,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             
-            // Settings button - accessible invisible overlay
+            // SETTINGS BUTTON - Position: bottomButtonsTopRatio from top, left side
             Positioned(
               top: bottomButtonsTop,
               left: screenWidth * AppConstants.bottomButtonMarginRatio,
@@ -161,7 +153,6 @@ class _HomeScreenState extends State<HomeScreen> {
               height: bottomButtonHeight,
               child: Semantics(
                 label: 'Settings',
-                hint: 'Navigate to settings to manage your preferences and app data',
                 button: true,
                 child: GestureDetector(
                   onTap: () => context.go('/settings'),
@@ -172,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             
-            // Help button - accessible invisible overlay
+            // HELP BUTTON - Position: bottomButtonsTopRatio from top, right side
             Positioned(
               top: bottomButtonsTop,
               right: screenWidth * AppConstants.bottomButtonMarginRatio,
@@ -180,7 +171,6 @@ class _HomeScreenState extends State<HomeScreen> {
               height: bottomButtonHeight,
               child: Semantics(
                 label: 'Help & Support',
-                hint: 'Navigate to help section for guidance and troubleshooting',
                 button: true,
                 child: GestureDetector(
                   onTap: () => context.go('/help'),

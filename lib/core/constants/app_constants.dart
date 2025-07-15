@@ -51,32 +51,31 @@ class AppConstants {
   /// Vertical spacing between different UI sections
   static const double spaceBetweenSections = 40.0;
   
-  // === Home Screen Positioning Constants ===
-  /// Main button width as percentage of screen width
-  static const double mainButtonWidthRatio = 0.8;
-  /// Main button height as percentage of screen height
-  static const double mainButtonHeightRatio = 0.08;
-  /// Horizontal padding as percentage of screen width
-  static const double horizontalPaddingRatio = 0.1;
-  /// Study Now button top position as percentage of screen height
-  static const double studyNowTopRatio = 0.38;
-  /// Study Log button top position as percentage of screen height
-  static const double studyLogTopRatio = 0.51;
-  /// Bottom buttons top position as percentage of screen height
-  static const double bottomButtonsTopRatio = 0.85;
-  /// Bottom button width as percentage of screen width
-  static const double bottomButtonWidthRatio = 0.4;
-  /// Bottom button height as percentage of screen height
-  static const double bottomButtonHeightRatio = 0.10;
-  /// Bottom button side margins as percentage of screen width
-  static const double bottomButtonMarginRatio = 0.05;
+  // === BUTTON POSITION RATIOS - UPDATE THESE FOR NEW HOME SCREEN IMAGE ===
+  // To adjust button positions: change these decimal values (0.0 to 1.0)
+  // where 0.0 is top/left edge and 1.0 is bottom/right edge
   
-  /// Bluetooth pairing button top position as percentage of screen height
-  static const double bluetoothButtonTopRatio = 0.65;
-  /// Bluetooth pairing button width as percentage of screen width
-  static const double bluetoothButtonWidthRatio = 0.6;
-  /// Bluetooth pairing button height as percentage of screen height
-  static const double bluetoothButtonHeightRatio = 0.08;
+  // Main buttons (Study Now & Study Log)
+  static const double mainButtonWidthRatio = 0.72;    // Button width
+  static const double mainButtonHeightRatio = 0.09;   // Button height
+  static const double horizontalPaddingRatio = 0.14; // Left margin
+  
+  // Study Now button position
+  static const double studyNowTopRatio = 0.33;        // Top position
+  
+  // Study Log button position  
+  static const double studyLogTopRatio = 0.445;        // Top position
+  
+  // Bottom buttons (Settings & Help)
+  static const double bottomButtonsTopRatio = 0.685;   // Top position
+  static const double bottomButtonWidthRatio = 0.35;  // Button width
+  static const double bottomButtonHeightRatio = 0.07; // Button height
+  static const double bottomButtonMarginRatio = 0.07; // Side margins
+  
+  // Bluetooth pairing button 
+  static const double bluetoothButtonTopRatio = 0.65;  // Top position
+  static const double bluetoothButtonWidthRatio = 0.6; // Button width
+  static const double bluetoothButtonHeightRatio = 0.08; // Button height
   
   static const Color primaryButtonColor = Color(0xFF5A5A6B);
   static const Color secondaryButtonColor = Color(0xFF9FA3C7);
