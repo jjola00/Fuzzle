@@ -184,7 +184,7 @@ class _LoadingScreenState extends State<LoadingScreen>
                   height: 14,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.black.withValues(alpha: opacity),
+                    color: Colors.black.withOpacity(opacity),
                   ),
                 ),
               ),
