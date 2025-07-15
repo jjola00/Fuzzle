@@ -190,8 +190,15 @@ class BluetoothService {
         },
       );
       
+      // Stop scanning subscription
+      if (_isScanningSubscription != null) {
+        await _isScanningSubscription!.cancel();
+        _isScanningSubscription = null;
+      }
+      );
+      
       // Listen for scan completion
-      FlutterBluePlus.isScanning.listen((isScanning) {
+      _isScanningSubscription = FlutterBluePlus.isScanning.listen((isScanning) {
         debugPrint('Scan state changed: $isScanning');
         if (!isScanning && _isScanning) {
           debugPrint('Scan completed, stopping discovery...');
