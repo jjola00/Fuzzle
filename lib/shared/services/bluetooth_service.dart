@@ -14,6 +14,7 @@ class BluetoothService {
   BluetoothDevice? _connectedDevice;
   StreamSubscription<List<ScanResult>>? _scanSubscription;
   StreamSubscription<BluetoothAdapterState>? _adapterStateSubscription;
+  StreamSubscription<bool>? _isScanningSubscription;  
   
   /// Current Bluetooth adapter state (on/off/unavailable)
   BluetoothAdapterState _adapterState = BluetoothAdapterState.unknown;
@@ -190,12 +191,11 @@ class BluetoothService {
         },
       );
       
-      // Stop scanning subscription
+      // Stop any existing scanning subscription
       if (_isScanningSubscription != null) {
         await _isScanningSubscription!.cancel();
         _isScanningSubscription = null;
       }
-      );
       
       // Listen for scan completion
       _isScanningSubscription = FlutterBluePlus.isScanning.listen((isScanning) {
@@ -222,6 +222,7 @@ class BluetoothService {
     _scanSubscription = null;
     _isScanning = false;
     _scanningController.add(false);
+    _isScanningSubscription?.cancel(); // Added missing cleanup
     debugPrint('Discovery stopped');
   }
 
@@ -333,6 +334,7 @@ class BluetoothService {
   void dispose() {
     _scanSubscription?.cancel();
     _adapterStateSubscription?.cancel();
+    _isScanningSubscription?.cancel();  // Added missing cleanup
     _connectedDevice?.disconnect();
     _stateController.close();
     _devicesController.close();
