@@ -71,10 +71,18 @@ class AppConstants {
   /// Bottom button side margins as percentage of screen width
   static const double bottomButtonMarginRatio = 0.05;
   
+  /// Bluetooth pairing button top position as percentage of screen height
+  static const double bluetoothButtonTopRatio = 0.65;
+  /// Bluetooth pairing button width as percentage of screen width
+  static const double bluetoothButtonWidthRatio = 0.6;
+  /// Bluetooth pairing button height as percentage of screen height
+  static const double bluetoothButtonHeightRatio = 0.08;
+  
   static const Color primaryButtonColor = Color(0xFF5A5A6B);
   static const Color secondaryButtonColor = Color(0xFF9FA3C7);
   static const Color backgroundColor = Color(0xFFE8EAF6);
   static const Color bottomButtonColor = Color(0xFFB0BEC5);
+  static const Color bluetoothButtonColor = Color(0xFF4A90E2);
   
   static const Color gradientStartColor = Color(0xFF7794B6);
   static const Color gradientEndColor = Color(0xFFDFFAFF);

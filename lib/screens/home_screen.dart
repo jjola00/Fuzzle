@@ -38,9 +38,32 @@ class _HomeScreenState extends State<HomeScreen> {
           SafeArea(
             child: _buildClickableAreas(context),
           ),
+          
+          // Visible Pairing button for testing Bluetooth functionality
+          Positioned(
+            top: 60, // Account for status bar
+            right: 20,
+            child: Container(
+              width: 120, // Fixed width to prevent infinite width constraints
+              child: ElevatedButton.icon(
+                onPressed: () => context.go('/device-pairing'),
+                icon: const Icon(Icons.bluetooth, size: 18),
+                label: const Text('Pairing'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppConstants.bluetoothButtonColor,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
       // Temporary floating button to test loading screen
+      // TODO: Remove this once the loading screen is implemented
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.go('/loading'),
         backgroundColor: AppConstants.primaryButtonColor,
@@ -64,6 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
         // Button positions using constants
         double studyNowTop = screenHeight * AppConstants.studyNowTopRatio;
         double studyLogTop = screenHeight * AppConstants.studyLogTopRatio;
+        double bluetoothButtonTop = screenHeight * AppConstants.bluetoothButtonTopRatio;
+        double bluetoothButtonWidth = screenWidth * AppConstants.bluetoothButtonWidthRatio;
+        double bluetoothButtonHeight = screenHeight * AppConstants.bluetoothButtonHeightRatio;
         double bottomButtonsTop = screenHeight * AppConstants.bottomButtonsTopRatio;
         double bottomButtonWidth = screenWidth * AppConstants.bottomButtonWidthRatio;
         double bottomButtonHeight = screenHeight * AppConstants.bottomButtonHeightRatio;
@@ -101,6 +127,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 button: true,
                 child: GestureDetector(
                   onTap: () => context.go('/study-log'),
+                  child: Container(
+                    color: Colors.transparent,
+                  ),
+                ),
+              ),
+            ),
+            
+            // Bluetooth Pairing button - accessible invisible overlay for hardware device connection
+            Positioned(
+              top: bluetoothButtonTop,
+              left: (screenWidth - bluetoothButtonWidth) / 2, // Center horizontally
+              width: bluetoothButtonWidth,
+              height: bluetoothButtonHeight,
+              child: Semantics(
+                label: 'Pair Device',
+                hint: 'Navigate to device pairing screen to connect with your Fuzzle hardware prototype',
+                button: true,
+                child: GestureDetector(
+                  onTap: () => context.go('/device-pairing'),
                   child: Container(
                     color: Colors.transparent,
                   ),
