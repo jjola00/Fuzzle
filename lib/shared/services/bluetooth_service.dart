@@ -309,7 +309,7 @@ class BluetoothService {
       const int maxAttempts = 10;
       
       while (attempts < maxAttempts) {
-        BluetoothAdapterState newState = await FlutterBluePlus.adapterState.first;
+        BluetoothAdapterState newState = await FlutterBluePlus.adapterState.where((state) => state == BluetoothAdapterState.on).first;
         debugPrint('Bluetooth state after turn on attempt ${attempts + 1}: $newState');
         
         if (newState == BluetoothAdapterState.on) {
