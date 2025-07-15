@@ -311,7 +311,9 @@ class _DevicePairingScreenState extends State<DevicePairingScreen> with WidgetsB
           ),
           IconButton(
             icon: Icon(_isScanning ? Icons.stop : Icons.search),
-            onPressed: _isScanning ? _bluetoothService.stopDiscovery : _startScanning,
+            onPressed: _isScanning 
+                ? () => _bluetoothService.stopDiscovery() 
+                : () => _startScanning(),
             tooltip: _isScanning ? 'Stop Scanning' : 'Start Scanning',
           ),
         ],
