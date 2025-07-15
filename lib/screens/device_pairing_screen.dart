@@ -321,7 +321,9 @@ class _DevicePairingScreenState extends State<DevicePairingScreen> with WidgetsB
   }
 
   Widget _buildBody() {
-    debugPrint('Building body with ${_discoveredDevices.length} discovered devices');
+    if (kDebugMode) {
+      debugPrint('Building body with ${_discoveredDevices.length} discovered devices');
+    }
     
     if (_adapterState == flutter_blue_plus.BluetoothAdapterState.off) {
       return _buildBluetoothOffMessage();
