@@ -59,6 +59,6 @@ flutter run -d android    # Android
 - Accessibility: semantic labels on tappable areas; high‑contrast buttons.
 
 ## Status
-I’ve since rebuilt Fuzzle with React Native, see:
+- I’ve since rebuilt Fuzzle with React Native, see:
 Fuzzle [React Native](https://github.com/jjola00/Fuzzle-React)
-Development of Fuzzle is currently on hold 😓. May revisit in the future if accessible to appropiate hardware tools and further refinement of idea. Fuzzle will continue to be an ideathon merchant.
+- Development of Fuzzle is currently on hold 😓. May revisit in the future if accessible to appropiate hardware tools and further refinement of idea. Fuzzle will continue to be an ideathon merchant.
