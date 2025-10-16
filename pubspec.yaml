@@ -1,5 +1,5 @@
 name: fuzzle
-description: "A new Flutter project."
+description: "Focused study app with sessions, logs, Bluetooth pairing, and desktop UX."
 publish_to: 'none'
 version: 1.0.0+1
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform, TargetPlatform;
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'core/themes/app_theme.dart';
@@ -13,9 +12,7 @@ import 'shared/services/bluetooth_service.dart';
 /// Configures desktop window management for optimal user experience.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (kIsWeb) {
-    setUrlStrategy(const HashUrlStrategy());
-  }
+  // Web-specific URL strategy removed as project is showcased via README only.
   
   // Desktop platform configuration for new home screen image
   if (!kIsWeb && (defaultTargetPlatform == TargetPlatform.windows ||
