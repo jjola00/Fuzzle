@@ -1,5 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform, TargetPlatform;
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'core/themes/app_theme.dart';
@@ -12,9 +13,14 @@ import 'shared/services/bluetooth_service.dart';
 /// Configures desktop window management for optimal user experience.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb) {
+    setUrlStrategy(const HashUrlStrategy());
+  }
   
   // Desktop platform configuration for new home screen image
-  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+  if (!kIsWeb && (defaultTargetPlatform == TargetPlatform.windows ||
+      defaultTargetPlatform == TargetPlatform.linux ||
+      defaultTargetPlatform == TargetPlatform.macOS)) {
     await windowManager.ensureInitialized();
     
     WindowOptions windowOptions = const WindowOptions(
@@ -39,7 +45,8 @@ void main() async {
   await StorageService.init();
   
   // Initialize Bluetooth service on mobile platforms where it's available
-  if (Platform.isAndroid || Platform.isIOS) {
+  if (!kIsWeb && (defaultTargetPlatform == TargetPlatform.android ||
+      defaultTargetPlatform == TargetPlatform.iOS)) {
     try {
       await BluetoothService().initialize();
     } catch (e) {
