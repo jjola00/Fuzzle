@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import '../screens/home_screen.dart';
 import '../screens/study_screen.dart';
 import '../screens/study_log_screen.dart';
@@ -8,15 +9,20 @@ import '../screens/feature2_screen.dart';
 import '../screens/settings_screen.dart';
 import '../screens/loading_screen.dart';
 import '../screens/device_pairing_screen.dart';
+import '../screens/portfolio_screen.dart';
 
 /// Routing configuration
 /// Provides clean URLs and easy navigation management across the app.
 final GoRouter router = GoRouter(
-  initialLocation: '/',
+  initialLocation: kIsWeb ? '/portfolio' : '/',
   routes: [
     GoRoute(
       path: '/',
       builder: (context, state) => const HomeScreen(),
+    ),
+    GoRoute(
+      path: '/portfolio',
+      builder: (context, state) => const PortfolioScreen(),
     ),
     GoRoute(
       path: '/study',
