@@ -60,4 +60,4 @@ flutter run -d android    # Android
 
 ## Status
 
-Development of Fuzzle is currently on hold 😓. May revisit in the future if accessible to appropiate hardware tools and further refinement of idea. Fuzzle will continue to be an ideathon merchant
+Development of Fuzzle is currently on hold 😓. May revisit in the future if accessible to appropiate hardware tools and further refinement of idea. Fuzzle will continue to be an ideathon merchant.
